@@ -1,7 +1,7 @@
 // ==========================================
 // SUPABASE AYARLARI
 // ==========================================
-const SUPABASE_URL = 'https://supabase.co';
+const SUPABASE_URL = 'https://vaelmipjkztoccnnirjv.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_MduuR2nsKw1UzupIjf5SrQ_Mlh0yBPm';
 const BUCKET_NAME = 'resimler';
 
@@ -59,8 +59,7 @@ async function uploadImage(file) {
         const response = await fetch(uploadEndpoint, {
             method: 'POST',
             headers: {
-                'apikey': SUPABASE_KEY,
-                'Authorization': `Bearer ${SUPABASE_KEY}`,
+                'apikey': SUPABASE_KEY,                
                 'Content-Type': file.type
             },
             body: file
