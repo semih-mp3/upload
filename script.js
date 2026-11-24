@@ -1,21 +1,16 @@
 // ==========================================
-// SUPABASE AYARLARI (Canlıya alırken burayı doldur)
+// SUPABASE AYARLARI
 // ==========================================
 const SUPABASE_URL = 'https://supabase.co';
 const SUPABASE_KEY = 'sb_publishable_MduuR2nsKw1UzupIjf5SrQ_Mlh0yBPm';
 const BUCKET_NAME = 'resimler';
-
-let supabaseClient = null;
-if (SUPABASE_URL.startsWith('http')) {
-    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-}
 
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
 const loadingBox = document.getElementById('loadingBox');
 const resultsArea = document.getElementById('resultsArea');
 
-// Sürükle-Bırak Olayları
+// Sürükle-Bırak ve Dosya Seçme Olayları
 dropZone.addEventListener('dragover', (e) => {
     e.preventDefault();
     dropZone.classList.add('dragover');
@@ -35,10 +30,8 @@ fileInput.addEventListener('change', (e) => {
     handleFiles(e.target.files);
 });
 
-// Dosyaları İşleme ve Yükleme
 async function handleFiles(files) {
     if (!files.length) return;
-
     loadingBox.style.display = 'block';
 
     for (let file of files) {
@@ -46,12 +39,10 @@ async function handleFiles(files) {
             alert(file.name + ' bir resim dosyası değil!');
             continue;
         }
-
         if (file.size > 10 * 1024 * 1024) {
             alert(file.name + ' 10 MB sınırını aşıyor!');
             continue;
         }
-
         await uploadImage(file);
     }
 
@@ -60,36 +51,35 @@ async function handleFiles(files) {
 }
 
 async function uploadImage(file) {
-    let finalUrl = '';
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Date.now()}_${Math.random().toString(36).substring(2, 8)}.${fileExt}`;
+    const uploadEndpoint = `${SUPABASE_URL}/storage/v1/object/${BUCKET_NAME}/${fileName}`;
 
-    // Eğer Supabase bilgileri girildiyse buluta yükle
-    if (supabaseClient) {
-        const fileExt = file.name.split('.').pop();
-        const fileName = `${Date.now()}_${Math.random().toString(36).substring(2, 8)}.${fileExt}`;
+    try {
+        const response = await fetch(uploadEndpoint, {
+            method: 'POST',
+            headers: {
+                'apikey': SUPABASE_KEY,
+                'Authorization': `Bearer ${SUPABASE_KEY}`,
+                'Content-Type': file.type
+            },
+            body: file
+        });
 
-        const { data, error } = await supabaseClient.storage
-            .from(BUCKET_NAME)
-            .upload(fileName, file);
-
-        if (error) {
-            alert('Yükleme hatası: ' + error.message);
+        if (!response.ok) {
+            const errData = await response.json();
+            alert('Yükleme hatası: ' + (errData.message || response.statusText));
             return;
         }
 
-        const { data: publicData } = supabaseClient.storage
-            .from(BUCKET_NAME)
-            .getPublicUrl(fileName);
+        const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/${BUCKET_NAME}/${fileName}`;
+        createResultCard(publicUrl, file.name);
 
-        finalUrl = publicData.publicUrl;
-    } else {
-        // Supabase henüz bağlanmadıysa yerel önizleme linki üret
-        finalUrl = URL.createObjectURL(file);
+    } catch (err) {
+        alert('Bağlantı hatası: ' + err.message);
     }
-
-    createResultCard(finalUrl, file.name);
 }
 
-// Link Kartı Oluşturma
 function createResultCard(url, fileName) {
     const bbCode = `[img]${url}[/img]`;
     const htmlCode = `<img src="${url}" alt="${fileName}">`;
@@ -127,7 +117,6 @@ function createResultCard(url, fileName) {
     resultsArea.insertBefore(card, resultsArea.firstChild);
 }
 
-// Tek Tıkla Kopyalama
 function copyText(btn) {
     const input = btn.previousElementSibling;
     input.select();
@@ -146,3 +135,9 @@ function copyText(btn) {
         btn.style.color = '';
     }, 1500);
 }
+
+
+
+     
+
+
