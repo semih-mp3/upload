@@ -1,8 +1,8 @@
 // ==========================================
 // SUPABASE AYARLARI
 // ==========================================
-const SUPABASE_URL = 'https://vaelmipjkztoccnnirjv.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_MduuR2nsKw1UzupIjf5SrQ_Mlh0yBPm';
+const SUPABASE_URL = 'https://supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZhZWxtaXBqa3p0b2Njbm5pcmp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTU1NDg2NzMsImV4cCI6MjExMTEyNDY3M30.KaX4CREJrAv2E98ExpaZhbfXDLtJml4vAg8ChbScryc';
 const BUCKET_NAME = 'resimler';
 
 const dropZone = document.getElementById('dropZone');
@@ -59,7 +59,8 @@ async function uploadImage(file) {
         const response = await fetch(uploadEndpoint, {
             method: 'POST',
             headers: {
-                'apikey': SUPABASE_KEY,                
+                'apikey': SUPABASE_KEY,
+                'Authorization': `Bearer ${SUPABASE_KEY}`,
                 'Content-Type': file.type
             },
             body: file
