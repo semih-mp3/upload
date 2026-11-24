@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HızlıYükle - Ücretsiz Resim Yükleme ve Paylaşım</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Supabase Bağlantı Kütüphanesi -->
+    <script src="https://jsdelivr.net"></script>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">⚡ <span>Hızlı</span>Yükle</div>
+        <div class="nav-info">JPG, PNG, WEBP, GIF • Maks. 10 MB</div>
+    </header>
+
+    <main class="container">
+        <div class="hero-text">
+            <h1>Resimlerini Saniyeler İçinde Yükle ve Paylaş</h1>
+            <p>Kayıt olmadan fotoğraf yükle; forum, web sitesi ve sosyal medya için anında kalıcı bağlantı al.</p>
+        </div>
+
+        <!-- Sürükle-Bırak Yükleme Kutusu -->
+        <div class="drop-zone" id="dropZone">
+            <input type="file" id="fileInput" accept="image/*" multiple hidden>
+            <div class="drop-icon">☁️</div>
+            <h3>Resimleri buraya sürükleyip bırak</h3>
+            <p>veya bilgisayarından seçmek için tıkla</p>
+            <button class="select-btn" onclick="document.getElementById('fileInput').click()">Dosya Seç</button>
+        </div>
+
+        <!-- Yükleme Durumu -->
+        <div class="loading-box" id="loadingBox" style="display: none;">
+            <div class="spinner"></div>
+            <p id="loadingText">Resim yükleniyor, lütfen bekleyin...</p>
+        </div>
+
+        <!-- Yüklenen Resimler ve Link Sonuçları -->
+        <div class="results-area" id="resultsArea"></div>
+    </main>
+
+    <footer class="footer">
+        <p>© 2026 HızlıYükle • Ücretsiz Görsel Barındırma Servisi</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

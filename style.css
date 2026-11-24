@@ -1,0 +1,224 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: #0d1117;
+    color: #e6edf3;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 8%;
+    background-color: #161b22;
+    border-bottom: 1px solid #30363d;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+}
+
+.logo span {
+    color: #3b82f6;
+}
+
+.nav-info {
+    font-size: 13px;
+    color: #8b949e;
+    background: #21262d;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+.container {
+    flex: 1;
+    width: 100%;
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.hero-text {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.hero-text h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+.hero-text p {
+    color: #8b949e;
+    font-size: 15px;
+}
+
+/* Sürükle-Bırak Alanı */
+.drop-zone {
+    background-color: #161b22;
+    border: 2px dashed #30363d;
+    border-radius: 16px;
+    padding: 50px 20px;
+    text-align: center;
+    transition: all 0.25s ease;
+    cursor: pointer;
+}
+
+.drop-zone:hover, .drop-zone.dragover {
+    border-color: #3b82f6;
+    background-color: rgba(59, 130, 246, 0.08);
+}
+
+.drop-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+}
+
+.drop-zone h3 {
+    font-size: 18px;
+    margin-bottom: 6px;
+}
+
+.drop-zone p {
+    color: #8b949e;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.select-btn {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.select-btn:hover {
+    background-color: #2563eb;
+}
+
+/* Yükleme Animasyonu */
+.loading-box {
+    text-align: center;
+    margin-top: 25px;
+    padding: 20px;
+    background: #161b22;
+    border-radius: 12px;
+    border: 1px solid #30363d;
+}
+
+.spinner {
+    width: 34px;
+    height: 34px;
+    border: 4px solid #30363d;
+    border-top-color: #3b82f6;
+    border-radius: 50%;
+    margin: 0 auto 12px;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Yüklenen Resim Kartları */
+.results-area {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.result-card {
+    display: flex;
+    gap: 20px;
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 14px;
+    padding: 18px;
+    align-items: center;
+}
+
+.result-preview {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    object-fit: cover;
+    background-color: #0d1117;
+    flex-shrink: 0;
+}
+
+.result-links {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.link-group label {
+    display: block;
+    font-size: 12px;
+    color: #8b949e;
+    margin-bottom: 4px;
+}
+
+.copy-row {
+    display: flex;
+    gap: 8px;
+}
+
+.copy-input {
+    flex: 1;
+    background-color: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: #e6edf3;
+    font-size: 13px;
+    outline: none;
+}
+
+.copy-btn {
+    background-color: #21262d;
+    color: #e6edf3;
+    border: 1px solid #30363d;
+    padding: 0 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.copy-btn:hover {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+    color: white;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: #8b949e;
+    font-size: 13px;
+    border-top: 1px solid #30363d;
+}
+
+@media (max-width: 650px) {
+    .result-card { flex-direction: column; }
+    .result-preview { width: 100%; height: 200px; }
+}
